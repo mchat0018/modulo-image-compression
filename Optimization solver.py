@@ -50,7 +50,7 @@ def solve_modulo_cs_milp(A, z, v_bound=1000):
         return None, None, res
 
 # Generate test data (as in the paper)
-N, s, m = 50, 15, 31   # m = 2s+1 = 31
+N, s, m = 784, 15, 31   # m = 2s+1 = 31
 A = np.random.randn(m, N) / np.sqrt(m)   # Gaussian measurements
 print(f"A = {A}")
 x_true = np.zeros(N)
