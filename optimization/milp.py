@@ -39,7 +39,7 @@ def solve_modulo_cs_milp(A, z, v_bound=1000):
                constraints=LinearConstraint(A_eq, lb=b_eq, ub=b_eq),
                integrality=integrality,
                bounds=bounds,
-               options={'disp': True})  # show solver output
+               options={'disp': True, 'mip_rel_gap': 1e-2})  # show solver output
 
     if res.success:
         x_opt = res.x[:n] - res.x[n:2 * n]  # x = x+ - x-
@@ -50,16 +50,16 @@ def solve_modulo_cs_milp(A, z, v_bound=1000):
         return None, None, res
 
 # Generate test data (as in the paper)
-N, s, m = 50, 15, 31   # m = 2s+1 = 31
-A = np.random.randn(m, N) / np.sqrt(m)   # Gaussian measurements
-print(f"A = {A}")
-x_true = np.zeros(N)
-support = np.random.choice(N, s, replace=False)
-x_true[support] = np.random.uniform(-1, 1, s)
-z = (A @ x_true) % 1    # modulo-1 measurements
+# N, s, m = 50, 15, 31   # m = 2s+1 = 31
+# A = np.random.randn(m, N) / np.sqrt(m)   # Gaussian measurements
+# print(f"A = {A}")
+# x_true = np.zeros(N)
+# support = np.random.choice(N, s, replace=False)
+# x_true[support] = np.random.uniform(-1, 1, s)
+# z = (A @ x_true) % 1    # modulo-1 measurements
 
-# Solve
-x_rec, v_rec, res = solve_modulo_cs_milp(A, z, v_bound=256)
-# print("Reconstruction error:", np.linalg.norm(x_rec - x_true))
-print(f"x_rec = {x_rec}")
-print(f"x is {np.linalg.norm(x_rec, ord=0)}-sparse and {len(x_rec)} entries")
+# # Solve
+# x_rec, v_rec, res = solve_modulo_cs_milp(A, z, v_bound=256)
+# # print("Reconstruction error:", np.linalg.norm(x_rec - x_true))
+# print(f"x_rec = {x_rec}")
+# print(f"x is {np.linalg.norm(x_rec, ord=0)}-sparse and {len(x_rec)} entries")
