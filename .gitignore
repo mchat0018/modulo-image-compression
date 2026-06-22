@@ -1,4 +1,4 @@
 *.csv
-*.json
+# *.json
 *-env
 __pycache__
